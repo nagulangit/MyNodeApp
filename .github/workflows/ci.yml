@@ -14,8 +14,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3  # This checks out your code from the repo
 
+      - name: Show Docker Username
+        run: echo "Docker Username: ${{ secrets.DOCKER_USERNAME }}"  # Check if username is correctly pulled
+
       - name: Log in to Docker Hub
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin  # Logs into Docker Hub
+        run: |
+          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin  # Logs into Docker Hub
 
       - name: Build and Push Docker Image
         run: |
